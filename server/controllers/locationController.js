@@ -2,7 +2,7 @@ import { pool } from '../config/database.js'
 
 export const getAllLocations = async (req, res) => {
     try {
-        const locations = await pool.query('SELECT * FROM locations ORDER BY name ASC');
+        const locations = await pool.query('SELECT * FROM locations ORDER BY id ASC');
         res.json(locations.rows);
     } catch (err) {
         console.error('Error fetching locations:', err);
@@ -41,7 +41,7 @@ export const createLocation = async (req, res) => {
 export const getEventsForLocation = async (req, res) => {
     const { id } = req.params;
     try {
-        const events = await pool.query('SELECT * FROM events WHERE id = $1 ORDER BY start_date ASC', [id]);
+        const events = await pool.query('SELECT * FROM events WHERE location_id = $1 ORDER BY start_date ASC', [id]);
         res.json(events.rows);
     } catch (err) {
         console.error('Error fetching events for location:', err);

@@ -14,7 +14,7 @@ header {
 }
 
 .main-header {
-    height: 30vh;
+    height: 20vh;
     width: 85vw;
     align-items: flex-end;
     position: relative;
@@ -30,25 +30,4 @@ header {
 .header-buttons button {
     margin-right: 20px;
     margin-left: 20px;
-}
-
-
-/* Events Page */
-.events-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding-bottom: 50px;
-}
-.event-card {
-    background-color: rgba(255, 255, 255, 0.8);
-    color: black;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin: 20px;
-    padding: 20px;
-    width: 80%;
-    max-width: 600px;
-    transition: transform 0.2s;
 }

@@ -2,7 +2,13 @@ import React, { useState, useEffect } from 'react'
 import Event from '../components/Event'
 import '../css/LocationEvents.css'
 import LocationsAPI from '../services/LocationsAPI'
-import EventsAPI from '../services/EventsAPI'
+
+const locationsByIndex = {
+    1: 'Riverside Park Pavilion',
+    2: 'Tech Hub Auditorium',
+    3: 'City Library – Room A',
+    4: 'Eastside Sports Complex'
+}
 
 const LocationEvents = ({index}) => {
     const [location, setLocation] = useState([])
@@ -12,18 +18,10 @@ const LocationEvents = ({index}) => {
         (async () => {
             try {
                 const locations = await LocationsAPI.getAllLocations()
-                setLocation(locations[index - 1])
-            }
-            catch (error) {
-                throw error
-            }
-        }) ()
-    }, [index])
+                const locattionToSet = locations.find(loc => loc.name === locationsByIndex[index])
+                setLocation(locattionToSet)
 
-    useEffect(() => {
-        (async () => {
-            try {
-                const eventsData = await LocationsAPI.getEventsForLocation(index)
+                const eventsData = await LocationsAPI.getEventsForLocation(locattionToSet.id)
                 setEvents(eventsData)
             }
             catch (error) {

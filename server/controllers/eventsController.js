@@ -28,7 +28,7 @@ export const getEventsByDateRange = async (req, res) => {
     const { startDate, endDate } = req.query;
     try {
         const events = await pool.query(
-            'SELECT * FROM events WHERE start_date >= $1 AND start_date <= $2 ORDER BY start_date ASC',
+            'SELECT * FROM events WHERE start_date >= $1 AND end_date <= $2 ORDER BY start_date ASC',
             [startDate, endDate]
         );
         res.json(events.rows);

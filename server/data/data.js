@@ -56,6 +56,16 @@ export default {
             locationName: "Eastside Sports Complex",
             image: "https://wallpapers.com/images/hd/passionate-indoor-soccer-play-cqm045tec02qr150.jpg",
             description: "Youth and adult brackets; team registration required."
+        },
+        {
+            name: "Chess Championship",
+            start_date: "2025-10-6T14:00:00Z",
+            end_date:   "2025-10-6T22:00:00Z",
+            date: "October 6, 2025",
+            time: "2:00 PM - 10:00 PM",
+            locationName: "Eastside Sports Complex",
+            image: "https://www.morganparkacademy.org/wp-content/uploads/2023/01/US-chess-team-tournament.jpg",
+            description: "Youth and adult brackets; team registration required."
         }
     ]
 };

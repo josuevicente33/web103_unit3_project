@@ -55,7 +55,6 @@ export const dates = {
     return 'Event ended';
   },
 
-  // keep this but make it safe and use the freshly computed string (not state)
   formatNegativeTimeRemaining(remainingText, id) {
     if (typeof document === 'undefined') return;
     if (typeof remainingText !== 'string') return;
