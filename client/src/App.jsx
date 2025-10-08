@@ -12,19 +12,19 @@ const App = () => {
       element: <Locations />
     },
     {
-      path: '/echolounge',
+      path: '/pavilion',
       element: <LocationEvents index={1} />
     },
     {
-      path: '/houseofblues',
+      path: '/techhub',
       element: <LocationEvents index={2} />
     },
     {
-      path: '/pavilion',
+      path: '/library',
       element: <LocationEvents index={3} />
     },
     {
-      path: '/americanairlines',
+      path: '/sportscomplex',
       element: <LocationEvents index={4} />
     },
     {
@@ -37,7 +37,7 @@ const App = () => {
     <div className='app'>
 
       <header className='main-header'>
-        <h1>UnityGrid Plaza</h1>
+        <h1>City of Wonders</h1>
 
         <div className='header-buttons'>
           <Link to='/' role='button'>Home</Link>

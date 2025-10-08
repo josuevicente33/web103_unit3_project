@@ -17,4 +17,9 @@ export const createLocation = async (locationData) => {
     return response.json();
 };
 
-export default { getAllLocations, getLocationById, createLocation };
+export const getEventsForLocation = async (id) => {
+    const response = await fetch(`/api/locations/${id}/events`);
+    return response.json();
+};
+
+export default { getAllLocations, getLocationById, createLocation, getEventsForLocation };
