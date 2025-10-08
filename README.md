@@ -52,7 +52,7 @@ I had a weird issue where the locations in the client were being pressed but sen
 
 ## License
 
-Copyright [2025] [name of copyright owner]
+Copyright [2025] [Josue Vicente]
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 
