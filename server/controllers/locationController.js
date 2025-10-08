@@ -23,3 +23,18 @@ export const getLocationById = async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 };
+
+export const createLocation = async (req, res) => {
+    const { name, address, capacity } = req.body;
+    try {
+        const newLocation = await pool.query(
+            'INSERT INTO locations (name, address, capacity) VALUES ($1, $2, $3) RETURNING *',
+            [name, address, capacity]
+        );
+        res.status(201).json(newLocation.rows[0]);
+    } catch (err) {
+        console.error('Error creating location:', err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
+export default { getAllLocations, getLocationById, createLocation };
