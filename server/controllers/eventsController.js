@@ -2,7 +2,7 @@ import { pool } from '../config/database.js'
 
 export const getAllEvents = async (req, res) => {
     try {
-        const events = await pool.query('SELECT * FROM events ORDER BY date ASC');
+        const events = await pool.query('SELECT * FROM events ORDER BY start_date ASC');
         res.json(events.rows);
     } catch (err) {
         console.error('Error fetching events:', err);
@@ -28,7 +28,7 @@ export const getEventsByDateRange = async (req, res) => {
     const { startDate, endDate } = req.query;
     try {
         const events = await pool.query(
-            'SELECT * FROM events WHERE date BETWEEN $1 AND $2 ORDER BY date ASC',
+            'SELECT * FROM events WHERE start_date >= $1 AND start_date <= $2 ORDER BY start_date ASC',
             [startDate, endDate]
         );
         res.json(events.rows);

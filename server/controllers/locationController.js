@@ -37,4 +37,17 @@ export const createLocation = async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 };
-export default { getAllLocations, getLocationById, createLocation };
+
+export const getEventsForLocation = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const events = await pool.query('SELECT * FROM events WHERE id = $1 ORDER BY start_date ASC', [id]);
+        res.json(events.rows);
+    } catch (err) {
+        console.error('Error fetching events for location:', err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
+
+
+export default { getAllLocations, getLocationById, createLocation, getEventsForLocation };

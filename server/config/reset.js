@@ -2,16 +2,35 @@ import './dotenv.js'
 import { pool } from './database.js'
 import data from  '../data/data.js'
 
+const deleteTables = async () => {
+    const query = `
+    DROP TABLE IF EXISTS events;
+    DROP TABLE IF EXISTS locations;
+    `
+    try {
+        const res = await pool.query(query);
+        console.log('Tables dropped if they existed.');
+    } catch (err) {
+        console.error('Error dropping tables:', err);
+        throw err;
+    }
+}
+
+await deleteTables();
+
 const createEventsTable = async () => {
     const query = `
     DROP TABLE IF EXISTS events;
 
     CREATE TABLE IF NOT EXISTS events (
         id SERIAL PRIMARY KEY,
-        name VARCHAR(100) NOT NULL,
-        start_date TIMESTAMP NOT NULL,
-        end_date TIMESTAMP NOT NULL,
+        title VARCHAR(100) NOT NULL,
+        start_date TIMESTAMPTZ NOT NULL,
+        end_date TIMESTAMPTZ NOT NULL,
+        date VARCHAR(50),
+        time VARCHAR(50),
         location_id INT REFERENCES locations(id) ON DELETE CASCADE,
+        image VARCHAR(255),
         description TEXT
     );
     `
@@ -31,8 +50,8 @@ const insertSampleData = async () => {
 
     data.events.forEach(async (event) => {
         const insertQuery = `
-        INSERT INTO events (name, start_date, end_date, location_id, description)
-        VALUES ($1, $2, $3, $4, $5)
+        INSERT INTO events (title, start_date, end_date, date, time, location_id, description, image)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
         RETURNING *;
         `;
 
@@ -42,7 +61,7 @@ const insertSampleData = async () => {
             return;
         }
 
-        const values = [event.name, event.start_date, event.end_date, locationResult.rows[0].id, event.description];
+        const values = [event.name, event.start_date, event.end_date, event.date, event.time, locationResult.rows[0].id, event.description, event.image];
         
         try {
             pool.query(insertQuery, values, (err, res) => {
@@ -65,7 +84,11 @@ const createLocationsTable = async () => {
         id SERIAL PRIMARY KEY,
         name VARCHAR(100) NOT NULL,
         address VARCHAR(200) NOT NULL,
+        city VARCHAR(100),
+        state VARCHAR(100),
+        zip VARCHAR(20),
         capacity INT,
+        image VARCHAR(255),
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
     `
@@ -84,11 +107,11 @@ const insertLocationsData = async () => {
 
     data.locations.forEach(async (location) => {
         const insertQuery = `
-        INSERT INTO locations (name, address, capacity)
-        VALUES ($1, $2, $3)
+        INSERT INTO locations (name, address, city, state, zip, capacity, image)
+        VALUES ($1, $2, $3, $4, $5, $6, $7)
         RETURNING *;
         `;
-        const values = [location.name, location.address, location.capacity];
+        const values = [location.name, location.address, location.city, location.state, location.zip, location.capacity, location.image];
         try {
             pool.query(insertQuery, values, (err, res) => {
                 if (err) {
