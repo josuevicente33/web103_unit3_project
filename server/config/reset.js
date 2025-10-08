@@ -1,5 +1,6 @@
-import pool from './database.js'
-import data from  './data.js'
+import './dotenv.js'
+import { pool } from './database.js'
+import data from  '../data/data.js'
 
 const createEventsTable = async () => {
     const query = `
@@ -30,12 +31,18 @@ const insertSampleData = async () => {
 
     data.events.forEach(async (event) => {
         const insertQuery = `
-        INSERT INTO events (name, date, location_id, description)
-        VALUES ($1, $2, $3, $4)
+        INSERT INTO events (name, start_date, end_date, location_id, description)
+        VALUES ($1, $2, $3, $4, $5)
         RETURNING *;
         `;
 
-        const values = [event.name, event.start_date, event.end_date, event.locationId, event.description];
+        const locationResult = await pool.query('SELECT id FROM locations WHERE name = $1', [event.locationName]);
+        if (locationResult.rows.length === 0) {
+            console.error(`Location not found for event: ${event.name}`);
+            return;
+        }
+
+        const values = [event.name, event.start_date, event.end_date, locationResult.rows[0].id, event.description];
         
         try {
             pool.query(insertQuery, values, (err, res) => {
@@ -69,7 +76,6 @@ const createLocationsTable = async () => {
     }
     catch (err) {
         console.error('Error creating locations table:', err);
-        throw err;
     }
 }
 
@@ -87,7 +93,6 @@ const insertLocationsData = async () => {
             pool.query(insertQuery, values, (err, res) => {
                 if (err) {
                     console.error('Error inserting location:', err);
-                    return;
                 }
                 console.log('Inserted location:', res.rows[0]);
             });
