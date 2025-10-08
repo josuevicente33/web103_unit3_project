@@ -2,9 +2,9 @@
 
 Submitted by: **Josue Vicente**
 
-About this web app: **App description here**
+About this web app: **In the city of wonders, we need to be able to do things and we are able to with this app. It displays events near us that would be fun to go to. They may be relaxing, competitive or just entertaining**
 
-Time spent: **X** hours
+Time spent: **7** hours
 
 ## Required Features
 
@@ -37,7 +37,7 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented required features:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='Web103 Project 3.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 <!-- Replace this with whatever GIF tool you used! -->
 GIF created with ...
@@ -48,10 +48,11 @@ GIF created with ...
 I had an issue with the enviroment variables not being seen so I had to create the dotenv.js file from the lab.
 I had issues making sure the api endpoints were corrent
 There were issues in the data being stored as I was unaware of what was already expected in the predetermined front end.
+I had a weird issue where the locations in the client were being pressed but sent to the incorrect link but that was because I assumed the selection of them were all in order from left to right.
 
 ## License
 
-Copyright [yyyy] [name of copyright owner]
+Copyright [2025] [name of copyright owner]
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 
